@@ -24,25 +24,24 @@ public final class IntTree {
     }
     
     public function find(key:Number):Object {
+        trace("find:" + key + " value:" + value + " key:" + this.key);
         if(count == 0) {
             return null;
         }
         else if(key > this.key) {
-            return right.find(key);
+            return right.find(key-this.key);
         }
         else if(key < this.key) {
-            return left.find(key);
+            return left.find(key-this.key);
         }
         return value
     }
     
     public function plus(key:Number, value:Object):IntTree {
         if(count == 0) {
-            trace("added", value);
-            return new IntTree(key - this.key, value, this, this);
+            return new IntTree(key, value, this, this);
         }
-        
-        var newKey:Number = key - this.key;
+        ;
         if(key < this.key) {
 			return balanced(left.plus(key - this.key, value), right);
 		} 
@@ -52,7 +51,7 @@ public final class IntTree {
 		if(value == this.value) {
 		    return this;
 		}
-        return new IntTree(key - this.key, value, left, right);
+        return new IntTree(key, value, left, right);
     }
 
     public function balanced(left:IntTree, right:IntTree):IntTree {
@@ -60,6 +59,14 @@ public final class IntTree {
             return this;
         }
         return rebalanced(key, value, left, right);
+    }
+    
+    public function withKey(key:Number):IntTree {
+        if(key == this.key
+            || count == 0) {
+            return this;
+        }
+        return new IntTree(key, value, left, right);
     }
     
     public function toString():String {
@@ -71,29 +78,75 @@ public final class IntTree {
     public static const ALPHA:int = 2;
     
     public static function rebalanced(key:Number, value:Object, left:IntTree, right:IntTree):IntTree {
-        if(left.count || right.count) {
+        if(left.count + right.count > 1) {
             if(left.count >= OMEGA * right.count) {
-                var once:IntTree = rotateRight(key, value, left, right);
                 if(left.right.count < ALPHA * left.left.count) {
-                    return once;
+                    return rotateRight(key, value, left, right);
                 }
-                else {
-                    return rotateRight(once.key, once.value, once.left, once.right);
-                }
+                return rotateRightTwice(key, value, left, right);
             }
             else if(right.count >= OMEGA * left.count) {
-                
+                if(right.left.count < ALPHA * right.right.count) {
+                    return rotateLeft(key, value, left, right);
+                }
+                return rotateLeftTwice(key, value, left, right);
             }
         }
-        return null;
+        return new IntTree(key, value, left, right);
     }
     
     public static function rotateRight(key:Number, value:Object, left:IntTree, right:IntTree):IntTree {
-        return null;
+         var ll:IntTree = left.left
+         var lr:IntTree = left.right;
+         
+		 return new IntTree(left.key+key, left.value,
+		 		ll,
+		 		new IntTree(-left.key, value,
+		 				lr.withKey(lr.key+left.key),
+		 				right));
+    }
+    
+    public static function rotateRightTwice(key:Number, value:Object, left:IntTree, right:IntTree):IntTree {
+        var lr:IntTree = left.right;
+        var ll:IntTree = left.left;
+        
+        var lrl:IntTree = lr.left;
+		var lrr:IntTree = lr.right;
+
+        return new IntTree(lr.key+left.key+key, lr.value,
+				new IntTree(-lr.key, left.value,
+						ll,
+						lrl.withKey(lrl.key+lr.key)),
+				new IntTree(-left.key-lr.key, value,
+						lrr.withKey(lrr.key+lr.key+left.key),
+						right));
     }
     
     public static function rotateLeft(key:Number, value:Object, left:IntTree, right:IntTree):IntTree {
-        return null;
+        var rl:IntTree = right.left
+        var rr:IntTree = right.right;
+        
+		return new IntTree(right.key+key, right.value,
+				new IntTree(-right.key, value,
+						left,
+						rl.withKey(rl.key+right.key)),
+				rr);
+    }
+    
+    public static function rotateLeftTwice(key:Number, value:Object, left:IntTree, right:IntTree):IntTree {
+        var rl:IntTree = right.left;
+        var rr:IntTree = right.right;
+        
+        var rll:IntTree = rl.left;
+        var rlr:IntTree = rl.right;
+        
+        return new IntTree(rl.key+right.key+key, rl.value,
+				new IntTree(-right.key-rl.key, value,
+						left,
+						rll.withKey(rll.key+rl.key+right.key)),
+				new IntTree(-rl.key, right.value,
+						rlr.withKey(rlr.key+rl.key),
+						rr));
     }
     
 }

@@ -62,7 +62,6 @@ package leafy  {
             tree = tree.plus(4, "four");
             
             assertNotNull(tree);
-            trace(tree);
             assertThat(tree.find(1), equalTo("one"));
             assertThat(tree.find(2), equalTo("two"));
             assertThat(tree.find(3), equalTo("three"));
