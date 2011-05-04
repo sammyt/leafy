@@ -24,7 +24,6 @@ public final class IntTree {
     }
     
     public function find(key:Number):Object {
-        trace("find:" + key + " value:" + value + " key:" + this.key);
         if(count == 0) {
             return null;
         }
@@ -34,6 +33,7 @@ public final class IntTree {
         else if(key < this.key) {
             return left.find(key-this.key);
         }
+        trace("find: " + key + " key: " + this.key);
         return value
     }
     
@@ -53,6 +53,42 @@ public final class IntTree {
 		}
         return new IntTree(key, value, left, right);
     }
+    
+    public function minus(key:Number):IntTree {
+        if(!count) {
+            return this;
+        }
+        if(key < this.key) {
+            return balanced(left.minus(key - this.key), right);
+        }
+        if(key > this.key) {
+            return balanced(left, right.minus(key - this.key));
+        }
+        
+        if(left.count == 0) {
+            return right.withKey(right.key + this.key);
+        }
+        if(right.count == 0) {
+            return left.withKey(left.key + this.key);
+        }
+        
+        var newKey:Number = right.minKey + this.key;
+        var newVal:* = right.find(newKey - this.key);
+        
+        var newRight:IntTree = right.minus(newKey - this.key);
+        newRight = newRight.withKey((newRight.key + this.key) - newKey);
+        
+        var newLeft:IntTree = left.withKey((left.key + this.key) - newKey);
+        
+        return rebalanced(newKey, newVal, newLeft, newRight);
+    }
+    
+    private function get minKey():Number {
+        if(left.count == 0) {
+            return key;
+        }
+        return left.minKey + key;
+    }
 
     public function balanced(left:IntTree, right:IntTree):IntTree {
         if(left == this.left && right == this.right) {
@@ -70,8 +106,8 @@ public final class IntTree {
     }
     
     public function toString():String {
-        return "<IntTree Key: " + key + ", value: " 
-            +  value + ", count:" + count +", left: " + left + ", right:" + right;
+        return "<IntTree Key: " + key + ", value: "  +  value + ", count:" + count + 
+        ", \nleft: " + left + ", \nright:" + right;
     }
     
     public static const OMEGA:int = 5;
@@ -130,7 +166,7 @@ public final class IntTree {
 				new IntTree(-right.key, value,
 						left,
 						rl.withKey(rl.key+right.key)),
-				rr);
+			    rr);
     }
     
     public static function rotateLeftTwice(key:Number, value:Object, left:IntTree, right:IntTree):IntTree {
