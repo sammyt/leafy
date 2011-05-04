@@ -47,6 +47,24 @@ package leafy  {
             
             assertThat(vect.at(1), equalTo(data));
         }
+        
+        [Test]
+        public function canAddAndRemove():void {
+            var vect:PVect;
+            
+            var data:String = "wooo";
+            
+            vect = instance.plus(data);
+            
+            assertThat(instance.count, equalTo(0));
+            assertThat(vect.count, equalTo(1));
+            
+            assertThat(vect.at(1), equalTo(data));
+            
+            var removed:PVect = vect.minus(1);
+            assertThat(removed.count, equalTo(0));
+            assertThat(vect.count, equalTo(1));
+        }
     }
 }
 

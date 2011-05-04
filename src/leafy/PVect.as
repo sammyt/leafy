@@ -11,7 +11,7 @@ public class PVect {
 	}
 	
 	public function minus(index:int):PVect {
-	   return null;
+	   return from(tree.minus(index));
 	}
 	
 	public function at(index:int):* {
