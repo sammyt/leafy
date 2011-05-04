@@ -10,7 +10,7 @@ package {
     [Suite]
     public class AllTests {
         public var leafy_IntTreeTest:leafy.IntTreeTest;
-        
+        public var leafy_PVectTest:leafy.PVectTest;
     }
 }
 
