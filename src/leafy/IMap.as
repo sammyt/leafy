@@ -1,6 +1,6 @@
 package leafy {
 
-public interface IMap {
+public interface IMap extends ISeq {
 	
 	function plus(key:*, val:*):IMap;
 	

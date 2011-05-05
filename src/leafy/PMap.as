@@ -12,7 +12,7 @@ public class PMap implements IMap {
         
         if(key is IHash) {
             hash = IHash(key).hash;
-            
+            return from(tree.plus(hash, val))
         }
         
         return null;
@@ -36,6 +36,18 @@ public class PMap implements IMap {
 	
 	public function addHashForType(type:Class, fn:Function):IMap {
 	    return this;
+	}
+	
+	public function first():ISeq {
+	    return null;
+	}
+	
+	public function rest():ISeq {
+	    return null;
+	}
+	
+	public function unite(...args):ISeq {
+	    return null;
 	}
 	
 	private function from(tree:IntTree):PMap {

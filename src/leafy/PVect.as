@@ -26,6 +26,18 @@ public class PVect implements IVect {
 	    return EMPTY;
 	}
 	
+	public function first():ISeq {
+	    return null;
+	}
+	
+	public function rest():ISeq {
+	    return null;
+	}
+	
+	public function unite(...args):ISeq {
+	    return null;
+	}
+	
 	private function from(tree:IntTree):PVect {
         var vect:PVect = new PVect();
         vect.tree = tree;

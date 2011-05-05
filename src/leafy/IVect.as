@@ -1,6 +1,6 @@
 package leafy {
 
-public interface IVect {
+public interface IVect extends ISeq {
 	
 	function plus(val:*):IVect;
 	
