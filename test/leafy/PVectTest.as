@@ -36,7 +36,7 @@ package leafy  {
         
         [Test]
         public function canAdd():void {
-            var vect:PVect;
+            var vect:IVect;
             
             var data:String = "wooo";
             
@@ -50,7 +50,7 @@ package leafy  {
         
         [Test]
         public function canAddAndRemove():void {
-            var vect:PVect;
+            var vect:IVect;
             
             var data:String = "wooo";
             
@@ -61,7 +61,7 @@ package leafy  {
             
             assertThat(vect.at(1), equalTo(data));
             
-            var removed:PVect = vect.minus(1);
+            var removed:IVect = vect.minus(1);
             assertThat(removed.count, equalTo(0));
             assertThat(vect.count, equalTo(1));
         }

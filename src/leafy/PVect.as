@@ -1,16 +1,16 @@
 package leafy {
 
-public class PVect {
+public class PVect implements IVect {
 	
 	public static const EMPTY:PVect = new PVect();
 	
 	private var tree:IntTree = new IntTree();
 	
-	public function plus(val:*):PVect {
+	public function plus(val:*):IVect {
 	   return from(tree.plus(tree.count + 1, val));
 	}
 	
-	public function minus(index:int):PVect {
+	public function minus(index:int):IVect {
 	   return from(tree.minus(index));
 	}
 	
