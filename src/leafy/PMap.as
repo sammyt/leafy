@@ -38,11 +38,11 @@ public class PMap implements IMap {
 	    return this;
 	}
 	
-	public function first():ISeq {
+	public function get first():* {
 	    return null;
 	}
 	
-	public function rest():ISeq {
+	public function get rest():ISeq {
 	    return null;
 	}
 	

@@ -33,7 +33,6 @@ public final class IntTree {
         else if(key < this.key) {
             return left.find(key-this.key);
         }
-        trace("find: " + key + " key: " + this.key);
         return value
     }
     

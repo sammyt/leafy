@@ -2,9 +2,9 @@ package leafy {
 
 public interface ISeq {
     
-	function first():ISeq;
+	function get first():*;
 	
-	function rest():ISeq;
+	function get rest():ISeq;
 	
 	function unite(...args):ISeq;
 }

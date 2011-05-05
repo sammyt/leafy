@@ -45,7 +45,7 @@ package leafy  {
             assertThat(instance.count, equalTo(0));
             assertThat(vect.count, equalTo(1));
             
-            assertThat(vect.at(1), equalTo(data));
+            assertThat(vect.at(0), equalTo(data));
         }
         
         [Test]
@@ -59,11 +59,39 @@ package leafy  {
             assertThat(instance.count, equalTo(0));
             assertThat(vect.count, equalTo(1));
             
-            assertThat(vect.at(1), equalTo(data));
+            assertThat(vect.at(0), equalTo(data));
             
-            var removed:IVect = vect.minus(1);
+            var removed:IVect = vect.minus(0);
             assertThat(removed.count, equalTo(0));
             assertThat(vect.count, equalTo(1));
+        }
+        
+        [Test]
+        public function canUseSeqFirst():void {
+            var v:IVect = instance.plus("one");
+            v = v.plus("two");
+            v = v.plus("three");
+            
+            assertThat(v.first, equalTo("one"));
+        }
+        
+        [Test]
+        public function canUseSeqRest():void {
+            var v:IVect = instance.plus("one");
+            v = v.plus("two");
+            v = v.plus("three");
+        
+            for (var i:int = 0; i < 3; i++) {
+                trace("i:" + i + " val:" + v.at(i));
+            }
+            
+            trace(v.first);
+            trace(IVect(v.rest).count);
+            trace(IVect(v.rest.rest).count);
+            
+            assertThat(IVect(v.rest).count, equalTo(2));
+            assertThat(v.rest.first, equalTo("two"));
+            assertThat(v.rest.rest.first, equalTo("three"));
         }
     }
 }

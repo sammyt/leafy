@@ -7,11 +7,12 @@ public class PVect implements IVect {
 	private var tree:IntTree = new IntTree();
 	
 	public function plus(val:*):IVect {
-	   return from(tree.plus(tree.count + 1, val));
+	   return from(tree.plus(tree.count, val));
 	}
 	
 	public function minus(index:int):IVect {
-	   return from(tree.minus(index));
+	    // need to shift keys after minus
+	    return from(tree.minus(index));
 	}
 	
 	public function at(index:int):* {
@@ -26,16 +27,16 @@ public class PVect implements IVect {
 	    return EMPTY;
 	}
 	
-	public function first():ISeq {
-	    return null;
+	public function get first():* {
+	    return at(0);
 	}
 	
-	public function rest():ISeq {
-	    return null;
+	public function get rest():ISeq {
+	    return minus(0);
 	}
 	
 	public function unite(...args):ISeq {
-	    return null;
+	    return plus(args[0]);
 	}
 	
 	private function from(tree:IntTree):PVect {
