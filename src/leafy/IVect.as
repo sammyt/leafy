@@ -9,6 +9,8 @@ public interface IVect {
 	function at(index:int):*;
 	
 	function get count():int;
+	
+	function get empty():IVect;
 }
 
 }

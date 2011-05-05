@@ -9,6 +9,8 @@ public interface IMap {
 	function at(key:*):*;
 	
 	function get count():int;
+	
+	function get empty():IMap;
 }
 
 }

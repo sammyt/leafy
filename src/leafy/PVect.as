@@ -2,7 +2,7 @@ package leafy {
 
 public class PVect implements IVect {
 	
-	public static const EMPTY:PVect = new PVect();
+	public static const EMPTY:IVect = new PVect();
 	
 	private var tree:IntTree = new IntTree();
 	
@@ -20,6 +20,10 @@ public class PVect implements IVect {
 	
 	public function get count():int {
 	   return tree.count;
+	}
+	
+	public function get empty():IVect {
+	    return EMPTY;
 	}
 	
 	private function from(tree:IntTree):PVect {
