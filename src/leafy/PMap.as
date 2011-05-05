@@ -17,6 +17,10 @@ public class PMap implements IMap {
 	public function get count():int {
 	    return -1;
 	}
+	
+	public function addHashForType(type:Class, fn:Function):IMap {
+	    return this;
+	}
     
 }
 
