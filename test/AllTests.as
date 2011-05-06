@@ -11,6 +11,7 @@ package {
     public class AllTests {
         public var leafy_IntTreeTest:leafy.IntTreeTest;
         public var leafy_PVectTest:leafy.PVectTest;
+        public var leafy_PMapTest:leafy.PMapTest;
     }
 }
 

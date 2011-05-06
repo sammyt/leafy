@@ -15,6 +15,8 @@ public class PMap implements IMap {
             return from(tree.plus(hash, val))
         }
         
+        throw new Error("eek");
+        
         return null;
     }
 	
@@ -23,11 +25,20 @@ public class PMap implements IMap {
 	}
 	
 	public function at(key:*):* {
+	    var hash:int;
+        
+        if(key is IHash) {
+            hash = IHash(key).hash;
+            return tree.find(hash);
+        }
+        
+        throw new Error("eek");
+        
 	    return null;
 	}
 	
 	public function get count():int {
-	    return -1;
+	    return tree.count;
 	}
 	
 	public function get empty():IMap {
@@ -59,4 +70,5 @@ public class PMap implements IMap {
 }
 
 }
+
 
