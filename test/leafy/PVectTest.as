@@ -85,6 +85,21 @@ package leafy  {
             assertThat(v.rest.first, equalTo("two"));
             assertThat(v.rest.rest.first, equalTo("three"));
         }
+        
+        [Test]
+        public function uniteAddsItem():void {
+            var vect:ISeq = instance.unite("bananna");
+            assertThat(vect.first, equalTo("bananna"));
+        }
+        
+        [Test]
+        public function uniteAddsItems():void {
+            var vect:ISeq = instance.unite("bananna", "sausage", "cheese");
+            assertThat(IVect(vect).count, equalTo(3));
+            assertThat(vect.first, equalTo("bananna"));
+            assertThat(vect.rest.first, equalTo("sausage"));
+            assertThat(vect.rest.rest.first, equalTo("cheese"));
+        }
     }
 }
 

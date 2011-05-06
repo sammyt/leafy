@@ -35,7 +35,19 @@ public class PVect implements IVect {
 	}
 	
 	public function unite(...args):ISeq {
-	    return plus(args[0]);
+	    if(args.length == 0) {
+	        return this;
+	    }
+	    if(args.length == 1) {
+	        return plus(args[0]);    
+	    }
+	    else {
+	        var next:ISeq = this;
+	        for each(var arg:* in args) {
+	            next = next.unite(arg);
+	        }
+	        return next;
+	    }
 	}
 	
 	private function from(tree:IntTree):PVect {
