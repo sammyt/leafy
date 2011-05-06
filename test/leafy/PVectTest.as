@@ -80,14 +80,6 @@ package leafy  {
             var v:IVect = instance.plus("one");
             v = v.plus("two");
             v = v.plus("three");
-        
-            for (var i:int = 0; i < 3; i++) {
-                trace("i:" + i + " val:" + v.at(i));
-            }
-            
-            trace(v.first);
-            trace(IVect(v.rest).count);
-            trace(IVect(v.rest.rest).count);
             
             assertThat(IVect(v.rest).count, equalTo(2));
             assertThat(v.rest.first, equalTo("two"));

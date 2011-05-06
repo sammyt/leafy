@@ -82,6 +82,49 @@ public final class IntTree {
         return rebalanced(newKey, newVal, newLeft, newRight);
     }
     
+    public function shiftBelowKey(key:int, delta:int):IntTree {
+        if(delta == 0) {
+            return this;
+        }
+        
+        if(count == 0) {
+            return this;
+        }
+        
+        if(this.key < key) {
+            return new IntTree(this.key + delta, value, left, 
+                right.shiftAboveKey(key - this.key, - delta));
+        }
+        
+        var nextLeft:IntTree = left.shiftBelowKey(key - this.key, delta);
+        
+        if(nextLeft == left) {
+            return this;
+        }
+        return new IntTree(this.key, value, nextLeft, right);
+    }
+    
+    public function shiftAboveKey(key:int, delta:int):IntTree {
+        if(delta == 0) {
+            return this;
+        }
+        
+        if(count == 0) {
+            return this;
+        }
+        
+        if(this.key >= key) {
+            return new IntTree(this.key + delta, value, 
+                left.shiftBelowKey(key - this.key, - delta), right);
+        }
+        var nextRight:IntTree = right.shiftAboveKey(key - this.key, delta);
+        
+		if(nextRight == right) {
+		    return this;
+		} 
+		return new IntTree(this.key, value, left, nextRight);
+    }
+    
     private function get minKey():Number {
         if(left.count == 0) {
             return key;

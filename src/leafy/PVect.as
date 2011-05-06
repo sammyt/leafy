@@ -11,8 +11,7 @@ public class PVect implements IVect {
 	}
 	
 	public function minus(index:int):IVect {
-	    // need to shift keys after minus
-	    return from(tree.minus(index));
+	    return from(tree.minus(index).shiftAboveKey(index, -1));
 	}
 	
 	public function at(index:int):* {
