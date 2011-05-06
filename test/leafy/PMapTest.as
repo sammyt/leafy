@@ -35,7 +35,7 @@ package leafy  {
         }
         
         [Test]
-        public function addHasImpl():void {
+        public function addHashImpl():void {
             var thing:Thing = new Thing();
             var map:IMap = instance.plus(thing, "a value");
             
@@ -43,6 +43,25 @@ package leafy  {
             assertThat(instance.count, equalTo(0));
             
             assertThat(map.at(thing), equalTo("a value"));
+        }
+        
+        [Test]
+        public function addStringKey():void {
+            var map:IMap = instance.plus("f00", 55);
+            assertThat(map.count, equalTo(1));
+            assertThat(map.at("f00"), equalTo(55));
+            
+            map = map.plus("bar", "wibble");
+            assertThat(map.count, equalTo(2));
+            assertThat(map.at("bar"), equalTo("wibble"));
+            assertThat(map.at("f00"), equalTo(55));
+        }
+        
+        [Test]
+        public function addNumberKey():void {
+            var map:IMap = instance.plus(4545, "crumbs");
+            assertThat(map.count, equalTo(1));
+            assertThat(map.at(4545), equalTo("crumbs"));
         }
     }
 }
