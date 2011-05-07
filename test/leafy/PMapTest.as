@@ -63,6 +63,17 @@ package leafy  {
             assertThat(map.count, equalTo(1));
             assertThat(map.at(4545), equalTo("crumbs"));
         }
+        
+        [Test]
+        public function removeWithIHash():void {
+            var thing:Thing = new Thing();
+            var map:IMap = instance.plus(thing, "a value");
+            
+            assertThat(map.at(thing), equalTo("a value"));
+            
+            var empty:IMap = map.minus(thing);
+            assertThat(empty.count, equalTo(0));
+        }
     }
 }
 

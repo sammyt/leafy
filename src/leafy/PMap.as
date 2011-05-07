@@ -22,10 +22,7 @@ public class PMap implements IMap {
             entries = entries.minus(keyIndex);
         }
         
-        // clear current entry
-        tree = tree.minus(hash);
-        
-        return from(tree.plus(hash, entries));
+        return from(tree.minus(hash).plus(hash, entries));
     }
     
     private function findKeyIndex(key:*, entries:IVect):int {
@@ -55,7 +52,25 @@ public class PMap implements IMap {
     }
     
     public function minus(key:*):IMap {
-        return null;
+        var hash:int = getHash(key);
+        
+        var entries:IVect = tree.find(hash) as IVect;
+        if(!entries) {
+            return this;
+        }
+        
+        var keyIndex:int = findKeyIndex(key, entries);
+        if(keyIndex == -1) {
+            return this;
+        }
+        
+        entries = entries.minus(keyIndex);
+        
+        if(entries.count > 0) {
+            return from(tree.minus(hash).plus(hash, entries));
+        }
+        
+        return from(tree.minus(hash));
     }
     
     public function at(key:*):* {
