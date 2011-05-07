@@ -22,7 +22,7 @@ public class PVect implements IVect {
 	   return tree.count;
 	}
 	
-	public function get empty():IVect {
+	public static function empty():IVect {
 	    return EMPTY;
 	}
 	

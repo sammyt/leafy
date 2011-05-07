@@ -8,7 +8,36 @@ public class PMap implements IMap {
     
     public function plus(key:*, val:*):IMap {
         var hash:int = getHash(key);
-        return from(tree.plus(hash, Node.from(key, hash, val)));
+        
+        var entries:IVect = tree.find(hash) as IVect;
+        
+        if(!entries) {
+            // first entry with hash
+            entries = PVect.empty().plus(Node.from(key, val));
+            return from(tree.plus(hash, entries));
+        }
+        
+        var keyIndex:int = findKeyIndex(key, entries);
+        if(keyIndex > -1) {
+            entries = entries.minus(keyIndex);
+        }
+        
+        // clear current entry
+        tree = tree.minus(hash);
+        
+        return from(tree.plus(hash, entries));
+    }
+    
+    private function findKeyIndex(key:*, entries:IVect):int {
+        var i:int = 0;
+        
+        while(i < entries.count) {
+            var node:Node = entries.at(i);
+            if(node.key == key) {
+                return i;
+            }
+        }
+        return -1;
     }
     
     private function getHash(key:*):int {
@@ -26,11 +55,23 @@ public class PMap implements IMap {
     }
     
     public function minus(key:*):IMap {
-        return from(tree.minus(getHash(key)));
+        return null;
     }
     
     public function at(key:*):* {
-        return tree.find(getHash(key)).val;
+        var entries:IVect = tree.find(getHash(key)) as IVect;
+        
+        if(!entries) {
+            return null;
+        }
+        
+        var node:Node;
+        if(entries.count == 1) {
+            node = entries.at(findKeyIndex(key, entries));
+            return node.val;
+        }
+        
+        return null;
     }
     
     public function get count():int {
@@ -39,10 +80,6 @@ public class PMap implements IMap {
     
     public function get empty():IMap {
         return EMPTY;
-    }
-    
-    public function addHashForType(type:Class, fn:Function):IMap {
-        return this;
     }
     
     public function get first():* {
@@ -67,7 +104,7 @@ public class PMap implements IMap {
         var hash:uint = keyStr.length;
         
         for (var i:int=0; i < keyStr.length; i++) {
-        	hash=((hash << 5) ^ (hash >> 27)) ^ uint(keyStr.charCodeAt(i));
+        	hash = ((hash << 5) ^ (hash >> 27)) ^ uint(keyStr.charCodeAt(i));
         }
         return hash;
     }
@@ -77,14 +114,12 @@ public class PMap implements IMap {
 }
 
 class Node {
-    public var hash:int;
     public var key:*;
     public var val:*;
     
-    public static function from(key:*, hash:int, val:*):Node {
+    public static function from(key:*, val:*):Node {
         var node:Node = new Node();
         node.key = key;
-        node.hash = hash;
         node.val = val;
         return node;
     }
