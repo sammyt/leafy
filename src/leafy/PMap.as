@@ -78,7 +78,7 @@ public class PMap implements IMap {
         return tree.count;
     }
     
-    public function get empty():IMap {
+    public static function empty():IMap {
         return EMPTY;
     }
     
