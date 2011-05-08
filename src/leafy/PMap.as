@@ -121,7 +121,19 @@ public class PMap implements IMap {
     }
     
     public function unite(...args):ISeq {
-        return null;
+        
+        var map:IMap = this;
+        var key:Object;
+        for (var i:int = 0; i < args.length; i++) {
+            if(i % 2 == 0) {
+                key = args[i];
+            }
+            else {
+                map = map.plus(key, args[i]);
+            }
+        }
+        
+        return map;
     }
     
     private function from(tree:IntTree):PMap {

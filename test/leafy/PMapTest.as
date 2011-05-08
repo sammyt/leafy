@@ -102,6 +102,12 @@ package leafy  {
             
             trace(IMap(map.rest).count, equalTo(0));
         }
+        
+        [Test]
+        public function unite():void {
+            var map:IMap = instance.unite("a", 10, "b", 20, "c", 30) as IMap;
+            assertThat(map.count, equalTo(3));
+        }
     }
 }
 
