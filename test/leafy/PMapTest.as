@@ -108,6 +108,12 @@ package leafy  {
             var map:IMap = instance.unite("a", 10, "b", 20, "c", 30) as IMap;
             assertThat(map.count, equalTo(3));
         }
+        
+        [Test]
+        public function uniteOne():void {
+            var map:IMap = instance.unite("a", 10) as IMap;
+            assertThat(map.count, equalTo(1));
+        }
     }
 }
 
