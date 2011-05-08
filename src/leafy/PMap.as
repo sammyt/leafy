@@ -98,10 +98,22 @@ public class PMap implements IMap {
     }
     
     public function get first():* {
+        var entries:IVect = tree.first.value as IVect;
+
+        if(!entries) {
+            return null;
+        }
+        
+        var node:Node;
+        if(entries.count > 0) {
+            node = entries.at(0);
+            return node.val;
+        }
+        
         return null;
     }
     
-    public function get rest():ISeq {
+    public function get rest():ISeq {;
         return null;
     }
     

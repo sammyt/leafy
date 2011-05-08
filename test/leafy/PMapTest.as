@@ -74,6 +74,25 @@ package leafy  {
             var empty:IMap = map.minus(thing);
             assertThat(empty.count, equalTo(0));
         }
+        
+        [Test]
+        public function firstMethod():void {
+            var map:IMap = instance.plus("f00", 55);
+            assertThat(map.count, equalTo(1));
+            assertThat(map.at("f00"), equalTo(55));
+            
+            assertThat(map.first, equalTo(55));
+        }
+        
+        [Test]
+        [Ignore]
+        public function restMethod():void {
+            var map:IMap = instance.plus("f00", 55);
+            map = map.plus("bar", 444);
+            
+            assertThat(map.count, equalTo(2));
+            assertThat(IMap(map.rest).count, equalTo(1));
+        }
     }
 }
 

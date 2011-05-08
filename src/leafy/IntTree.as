@@ -131,7 +131,18 @@ public final class IntTree {
         }
         return left.minKey + key;
     }
-
+    
+    public function get first():IntTree {
+        
+        var n:IntTree = this;
+        
+        while(n.left && n.count > 1) {
+            n = n.left;
+        }
+        
+        return n;
+    }
+    
     public function balanced(left:IntTree, right:IntTree):IntTree {
         if(left == this.left && right == this.right) {
             return this;
@@ -148,8 +159,7 @@ public final class IntTree {
     }
     
     public function toString():String {
-        return "<IntTree Key: " + key + ", value: "  +  value + ", count:" + count + 
-        ", \nleft: " + left + ", \nright:" + right;
+        return ["Key ", key, " value ", value, " count ", count].join("");
     }
     
     public static const OMEGA:int = 5;
