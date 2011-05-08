@@ -136,10 +136,9 @@ public final class IntTree {
         
         var n:IntTree = this;
         
-        while(n.left && n.count > 1) {
+        while(n.left && n.left.count > 1) {
             n = n.left;
         }
-        
         return n;
     }
     

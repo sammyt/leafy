@@ -85,13 +85,22 @@ package leafy  {
         }
         
         [Test]
-        [Ignore]
         public function restMethod():void {
             var map:IMap = instance.plus("f00", 55);
             map = map.plus("bar", 444);
+            map = map.plus("woot", "ding");
             
-            assertThat(map.count, equalTo(2));
+            assertThat(IMap(map.rest).count, equalTo(2));
+            
+            map = map.minus("bar");
+            
             assertThat(IMap(map.rest).count, equalTo(1));
+            
+            map = map.minus("woot");
+            
+            assertThat(map.first, equalTo(55));
+            
+            trace(IMap(map.rest).count, equalTo(0));
         }
     }
 }

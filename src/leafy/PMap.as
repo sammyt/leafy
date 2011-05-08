@@ -106,7 +106,7 @@ public class PMap implements IMap {
         
         var node:Node;
         if(entries.count > 0) {
-            node = entries.at(0);
+            node = entries.first;
             return node.val;
         }
         
@@ -114,7 +114,10 @@ public class PMap implements IMap {
     }
     
     public function get rest():ISeq {;
-        return null;
+        var entries:IVect = tree.first.value as IVect;
+        
+        var node:Node = entries.first;
+        return from(tree.minus(getHash(node.key)));
     }
     
     public function unite(...args):ISeq {
@@ -149,5 +152,9 @@ class Node {
         node.key = key;
         node.val = val;
         return node;
+    }
+    
+    public function toString():String {
+        return "Node key " + key + " val: " + val;
     }
 }
