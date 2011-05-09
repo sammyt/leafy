@@ -7,6 +7,8 @@ public interface ISeq {
 	function get rest():ISeq;
 	
 	function unite(...args):ISeq;
+	
+	function get count():int;
 }
 
 }

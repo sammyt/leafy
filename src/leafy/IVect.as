@@ -7,8 +7,6 @@ public interface IVect extends ISeq {
 	function minus(index:int):IVect;
 	
 	function at(index:int):*;
-	
-	function get count():int;
 }
 
 }

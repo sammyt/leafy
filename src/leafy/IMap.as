@@ -7,8 +7,6 @@ public interface IMap extends ISeq {
 	function minus(key:*):IMap;
 	
 	function at(key:*):*;
-	
-	function get count():int;
 }
 
 }
