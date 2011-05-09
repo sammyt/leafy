@@ -136,6 +136,12 @@ public class PMap implements IMap {
         return map;
     }
     
+    public static function fromArray(source:Array):IMap {
+	    var map:IMap = EMPTY;
+	    map.unite.apply(map, source);
+	    return map;
+	}
+    
     private function from(tree:IntTree):PMap {
         var map:PMap = new PMap();
         map.tree = tree;

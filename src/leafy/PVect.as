@@ -50,6 +50,14 @@ public class PVect implements IVect {
 	    }
 	}
 	
+	public static function fromArray(source:Array):IVect {
+	    var vect:IVect = EMPTY;
+        for each (var item:* in source) {
+            vect = vect.plus(item);
+        }
+	    return vect;
+	}
+	
 	private function from(tree:IntTree):PVect {
         var vect:PVect = new PVect();
         vect.tree = tree;

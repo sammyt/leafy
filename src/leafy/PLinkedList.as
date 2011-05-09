@@ -48,6 +48,22 @@ public class PLinkedList implements ILinkedList {
         list._count = count + 1;
         return list;
     }
+    
+    public static function empty():ILinkedList {
+        return EMPTY;
+    }
+    
+    public static function fromArray(source:Array):ILinkedList {
+	    var list:ILinkedList = EMPTY;
+	    var i:int = source.length - 1;
+	    
+	    while(i > -1 ) {
+	        list = list.plus(source[i]);
+	        i--;
+	    }
+	    
+	    return list;
+	}
 }
 }
 

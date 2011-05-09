@@ -56,6 +56,9 @@ package leafy  {
             var list:ILinkedList = instance.unite("ello", "woo", "bar") as ILinkedList;
             assertThat(instance.count, equalTo(0));
             assertThat(list.count, equalTo(3));
+            assertThat(list.first, equalTo("bar"));
+            assertThat(list.rest.first, equalTo("woo"));
+            assertThat(list.rest.rest.first, equalTo("ello"));
         }
         
         [Test]
