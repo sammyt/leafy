@@ -57,6 +57,7 @@ flashplayer :test => "bin/Leafy-test.swf"
 compc "bin/Leafy.swc" do |t|
   t.input_class = "Leafy"
   t.source_path << 'src'
+  t.include_sources << 'src/leafy'
 end
 
 desc "Compile the SWC file"
