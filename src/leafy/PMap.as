@@ -121,24 +121,24 @@ public class PMap implements IMap {
     }
     
     public function unite(...args):ISeq {
+        return fromArray(args, this);
+    }
+    
+    public static function fromArray(source:Array, root:IMap = null):IMap {
+	    var map:IMap = root ? root : EMPTY;
         
-        var map:IMap = this;
         var key:Object;
-        for (var i:int = 0; i < args.length; i++) {
+        var len:int = source.length;
+        
+        for (var i:int = 0; i < len; i++) {
             if(i % 2 == 0) {
-                key = args[i];
+                key = source[i];
             }
             else {
-                map = map.plus(key, args[i]);
+                map = map.plus(key, source[i]);
             }
         }
         
-        return map;
-    }
-    
-    public static function fromArray(source:Array):IMap {
-	    var map:IMap = EMPTY;
-	    map.unite.apply(map, source);
 	    return map;
 	}
     
